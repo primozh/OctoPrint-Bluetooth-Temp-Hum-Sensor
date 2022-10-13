@@ -1,0 +1,4 @@
+include README.md
+recursive-include octoprint_bluetooth_temp_hum_sensor/templates *
+recursive-include octoprint_bluetooth_temp_hum_sensor/translations *
+recursive-include octoprint_bluetooth_temp_hum_sensor/static *
