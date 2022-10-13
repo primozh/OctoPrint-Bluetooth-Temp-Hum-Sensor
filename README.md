@@ -2,6 +2,9 @@
 
 **TODO:** Describe what your plugin does.
 
+[Custom Firmware](https://github.com/pvvx/ATC_MiThermometer)
+
+
 ## Setup
 
 Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)

@@ -5,4 +5,51 @@
             <input type="text" class="input-block-level" data-bind="value: settings.plugins.bluetooth_temp_hum_sensor.mac_address">
         </div>
     </div>
+    
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_temperature" id="show_temperature"> Show temperature
+            </label>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_humidity" id="show_humidity"> Show humidity
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_battery" id="show_batery"> Show battery level
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="control-label">{{ _('Advertising format') }}</label>
+            <div class="controls">
+                <select>
+                    {% for option in plugin_bluetooth_temp_hum_sensor_advertising_formats %}
+                        <option value="{{option}}">
+                        {{option}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Binding key') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.bluetooth_temp_hum_sensor.binding_key">
+        </div>
+    </div>
+
 </form>
