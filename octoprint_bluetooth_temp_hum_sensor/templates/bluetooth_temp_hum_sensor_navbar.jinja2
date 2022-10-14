@@ -1,13 +1,14 @@
-<a>
-<strong>
-<span data-bind="visible: settings.settings.plugins.bluetooth_temp_hum_sensor.show_temperature">
-    Temperature 20°C
-</span>
-<span data-bind="visible: settings.settings.plugins.bluetooth_temp_hum_sensor.show_humidity">
-    Humidity 59%
-</span>
-<span data-bind="visible: settings.settings.plugins.bluetooth_temp_hum_sensor.show_battery">
-    Battery 45%
-</span>
-</strong>
-</a>
+<div>    
+    <span id="bluetooth_temp" data-bind="visible: local_settings.show_temperature()">
+        Temperature <span data-bind="text: currentTemp()"></span>
+    </span>
+        
+    <span id="bluetooth_humidity" data-bind="visible: local_settings.show_humidity()">
+        Humidity <span data-bind="text: currentHumidity()"></span>
+    </span>
+
+        
+    <span id="bluetooth_temp" data-bind="visible: local_settings.show_battery()">
+        Battery <span data-bind="text: currentBattery()"></span>
+    </span>
+</div>
