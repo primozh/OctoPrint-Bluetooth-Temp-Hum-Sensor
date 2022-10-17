@@ -1,10 +1,12 @@
 from random import random
 import octoprint.plugin
 from octoprint.util import RepeatedTimer
+from octoprint_bluetooth_temp_hum_sensor.bluetooth import BluetoothAdvertismentAnalyzer
 
 from octoprint_bluetooth_temp_hum_sensor.constants import AdvertisingFormat
 
 class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
+                                    octoprint.plugin.ShutdownPlugin,
                                     octoprint.plugin.TemplatePlugin,
                                     octoprint.plugin.SettingsPlugin,
                                     octoprint.plugin.AssetPlugin):
@@ -16,23 +18,26 @@ class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
             Battery="45%"
         )
 
-    def __start_timer(self):
-        self.__update_timer = RepeatedTimer(5, self.on_timer, run_first = True)
-        self.__update_timer.start()
-
-    def on_timer(self):
-        # self._logger.info(self._identifier)
-        self._plugin_manager.send_plugin_message(self._identifier, dict(
-                Temperature= "{:.2f}".format(random() * 20),
-                Humidity="{:.2f}".format(random() * 60),
-                Battery=100    
-            )
-        )
+        self.bluetoothListener = None
+        self.aeskeys = {}
 
     # OCTOPRINT 
     def on_after_startup(self):
-        self._logger.info("Hello World!")
-        self.__start_timer();
+        mac_address = self._settings.get(["mac_address"])
+        binding_key = self._settings.get(["binding_key"])
+
+        if mac_address:
+            if binding_key:
+                self.aeskeys[mac_address] = binding_key
+            
+            self.bluetoothListener = BluetoothAdvertismentAnalyzer(self._identifier, mac_address, self.aeskeys, self._logger, self._plugin_manager)
+            self._logger.info("Starting BT listener")
+        else:
+            self._logger.info("MAC address not provided! Could not start BT listener")
+
+    def on_shutdown(self):
+        self.bluetoothListener.stop()
+        return super().on_shutdown()
 
     def get_settings_defaults(self):
         return dict(
@@ -41,7 +46,7 @@ class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
             show_temperature=True,
             show_humidity=True,
             show_battery=True,
-            advertising_format=AdvertisingFormat.BTHOME_ENCRYPTED.name,
+            advertising_format=AdvertisingFormat.BTHOME.name,
             binding_key="",
             refresh_interval=10
         )

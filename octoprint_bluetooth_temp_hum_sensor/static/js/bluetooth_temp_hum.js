@@ -3,14 +3,9 @@ $(function() {
         var self = this;
 
         self.global_settings = parameters[0];
-        self.currentTemp = ko.observable("50");
-        self.currentBattery = ko.observable("50");
-        self.currentHumidity = ko.observable("50");
-
-
-        self.onStartup = function() {
-            console.log("Established viewmodel BT");
-        }
+        self.currentTemp = ko.observable("");
+        self.currentBattery = ko.observable("");
+        self.currentHumidity = ko.observable("");
 
         self.onDataUpdaterPluginMessage = function(plugin, message) {
             if (plugin !== "bluetooth_temp_hum_sensor") {
