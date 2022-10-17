@@ -20,3 +20,5 @@ class BTParser:
             if uuid16 in [0x181C, 0x181E]:
                 self.logger.debug("BTHome format. Parsing...")
                 return self.bthome.parse_bthome(uuid16, mac_address, service_data, self.aeskeys)
+            else:
+                self.logger.debug("Unknown service id")

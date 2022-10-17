@@ -23,12 +23,10 @@ class BluetoothAdvertismentAnalyzer:
     
     def stop(self):
         self.logger.info("Scanning stopped")
-        self.stop_event.clear()
+        self.stop_event.set()
 
     async def run(self):
         self.stop_event = asyncio.Event()
-        self.stop_event.set()
-
         data = dict(
                     temperature= "- °C",
                     humidity="- %",
@@ -42,9 +40,10 @@ class BluetoothAdvertismentAnalyzer:
             await self.stop_event.wait()
         
     def callback(self, device, advertising_data):
-        # self.logger.info("Found %s", device)
 
-        if device.address == self.mac_address:
+        if device.address.casefold() == self.mac_address.casefold():
+            self.logger.debug("Found %s, %s", device.address, self.mac_address)
+
             result = self.bleparser.parse_data(device.address, advertising_data)
 
             if "temperature" in result:
