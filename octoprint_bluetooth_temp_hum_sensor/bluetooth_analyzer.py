@@ -22,7 +22,7 @@ class BluetoothAdvertismentAnalyzer:
         self.loop.run_until_complete(self.run())
     
     def stop(self):
-        self.logger.info("Scanning stopped")
+        self.logger.info("Stopped listening")
         self.stop_event.set()
 
     async def run(self):
@@ -35,7 +35,7 @@ class BluetoothAdvertismentAnalyzer:
         self.logger.debug("Sending data %s, %s", self.identifier, data)
         self.plugin_manager.send_plugin_message(self.identifier, data)
 
-        self.logger.info("Started scanning for BT devices")
+        self.logger.info("Started listening for BT advertisement packets")
         async with BleakScanner(self.callback) as scanner:
             await self.stop_event.wait()
         

@@ -2,14 +2,14 @@
     <div class="control-group">
         <label class="control-label">{{ _('MAC address') }}</label>
         <div class="controls">
-            <input type="text" class="input-block-level" data-bind="value: settings.plugins.bluetooth_temp_hum_sensor.mac_address">
+            <input type="text" class="input-block-level" data-bind="value: local_settings.mac_address">
         </div>
     </div>
     
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_temperature" id="show_temperature"> Show temperature
+                <input type="checkbox" data-bind="checked: local_settings.show_temperature" id="show_temperature"> Show temperature
             </label>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_humidity" id="show_humidity"> Show humidity
+                <input type="checkbox" data-bind="checked: local_settings.show_humidity" id="show_humidity"> Show humidity
             </label>
         </div>
     </div>
@@ -25,10 +25,23 @@
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_battery" id="show_batery"> Show battery level
+                <input type="checkbox" data-bind="checked: local_settings.show_battery" id="show_batery"> Show battery level
             </label>
         </div>
     </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button data-bind="click: searchDevices"> Search for devices </button>
+            <button data-bind="click: stop"> Stop </button>
+        </div>
+    </div>
+
+
+    <li class="header">Devices</li>
+    <!-- ko foreach: devices -->
+        <li><span data-bind="text: name"></span> <span data-bind="text: mac"></span></li>
+    <!-- /ko -->
 
 <!--     <div class="control-group">
         <div class="controls">
