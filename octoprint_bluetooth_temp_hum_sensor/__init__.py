@@ -75,5 +75,6 @@ class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
             js=["js/bluetooth_temp_hum.js"]
         )
 
+__plugin_name__ = "Bluetooth Temperature and Humidty Plugin"
 __plugin_pythoncompat__ = ">=3.7,<4"
 __plugin_implementation__ = BluetoothTempAndHumDataPlugin()

@@ -3,17 +3,17 @@ $(function() {
         var self = this;
 
         self.global_settings = parameters[0];
-        self.currentTemp = ko.observable("");
-        self.currentBattery = ko.observable("");
-        self.currentHumidity = ko.observable("");
+        self.currentTemp = ko.observable("- °C");
+        self.currentBattery = ko.observable("- %");
+        self.currentHumidity = ko.observable("- %");
 
         self.onDataUpdaterPluginMessage = function(plugin, message) {
             if (plugin !== "bluetooth_temp_hum_sensor") {
                 return;
             }
-            self.currentTemp(message.Temperature);
-            self.currentBattery(message.Battery);
-            self.currentHumidity(message.Humidity);
+            self.currentTemp(message.temperature);
+            self.currentBattery(message.battery);
+            self.currentHumidity(message.humidity);
         };
 
         self.onBeforeBinding = function() {

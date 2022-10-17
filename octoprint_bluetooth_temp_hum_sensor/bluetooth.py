@@ -17,18 +17,16 @@ class BluetoothAdvertismentAnalyzer:
         self.bleparser = BTParser(logger, self.aeskeys)
         self.plugin_manager = plugin_manager
 
-        self._scanner = None
         self.thread = threading.Thread(target=self.start, daemon=True)
         self.thread.start()
 
 
     def start(self):
-        self.logger.info("Starting new Thread")
         self.loop = asyncio.new_event_loop()
         self.loop.run_until_complete(self.run())
 
     async def run(self):
-        self.logger.info("Started scanning for BT devices")
+        self.logger.debug("Started scanning for BT devices")
         async with BleakScanner(self.callback) as scanner:
             pass
         
@@ -37,16 +35,15 @@ class BluetoothAdvertismentAnalyzer:
 
         if device.address == self.mac_address:
             result = self.bleparser.parse_data(device.address, advertising_data)
-            self.logger.info("%s", result["temperature"])
 
             if "temperature" in result:
                 data = dict(
-                    Temperature= "{:.2f}".format(result["temperature"]),
-                    Humidity="{:.2f}".format(result["humidity"]),
-                    Battery=result["battery"]
+                    temperature= "{:.2f} °C".format(result["temperature"]),
+                    humidity="{:.2f} %".format(result["humidity"]),
+                    battery="{} %".format(result["battery"])
                 )
-                self.logger.info("Sending data! %s, %s", self.identifier, data)
+                self.logger.debug("Sending data! %s, %s", self.identifier, data)
                 self.plugin_manager.send_plugin_message(self.identifier, data)
             else:
-                self.logger.info("No data in packet!")
+                self.logger.debug("No data in packet!")
 

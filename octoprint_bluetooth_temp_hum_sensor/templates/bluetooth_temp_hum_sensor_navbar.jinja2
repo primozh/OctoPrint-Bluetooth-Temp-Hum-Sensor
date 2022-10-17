@@ -1,14 +1,16 @@
-<div>    
-    <span id="bluetooth_temp" data-bind="visible: local_settings.show_temperature()">
-        Temperature <span data-bind="text: currentTemp()"></span>
-    </span>
-        
-    <span id="bluetooth_humidity" data-bind="visible: local_settings.show_humidity()">
-        Humidity <span data-bind="text: currentHumidity()"></span>
-    </span>
+<a href="#">
+    <div>    
+        <span id="bluetooth_temp" data-bind="visible: local_settings.show_temperature()">
+            Temperature <strong><span data-bind="text: currentTemp()"></span></strong>
+        </span>
+            
+        <span id="bluetooth_humidity" data-bind="visible: local_settings.show_humidity()">
+            Humidity <strong><span data-bind="text: currentHumidity()"></span></strong>
+        </span>
 
-        
-    <span id="bluetooth_temp" data-bind="visible: local_settings.show_battery()">
-        Battery <span data-bind="text: currentBattery()"></span>
-    </span>
-</div>
+            
+        <span id="bluetooth_temp" data-bind="visible: local_settings.show_battery()">
+            Battery <strong><span data-bind="text: currentBattery()"></span></strong>
+        </span>
+    </div>
+</a>
