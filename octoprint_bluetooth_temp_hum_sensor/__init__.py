@@ -12,12 +12,6 @@ class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
                                     octoprint.plugin.AssetPlugin):
     
     def __init__(self):
-        self.__Settings = dict(
-            Temperature = "24°C",
-            Humidity="58%",
-            Battery="45%"
-        )
-
         self.bluetoothListener = None
         self.aeskeys = {}
 
@@ -59,6 +53,10 @@ class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
         new_mac = self._settings.get(["mac_address"])
         if old_mac != new_mac:
             self._logger.info("mac_address changed from %s to %s", old_mac, new_mac)
+            self.bluetoothListener.stop()
+            self.bluetoothListener = BluetoothAdvertismentAnalyzer(self._identifier, new_mac, self.aeskeys, self._logger, self._plugin_manager)
+            self._logger.info("Restarting BT listener with new MAC address %s", new_mac)
+
 
     def get_template_vars(self):
         return dict(

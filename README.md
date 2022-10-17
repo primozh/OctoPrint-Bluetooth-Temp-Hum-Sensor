@@ -1,20 +1,22 @@
 # OctoPrint Bluetooth Temperature and Humidity sensor plugin
 
-**TODO:** Describe what your plugin does.
+Listens for Bluetooth advertisement messages that contains temperature, humidity and battery information for nearby device with user configured MAC address.
 
-[Custom Firmware](https://github.com/pvvx/ATC_MiThermometer)
+Can be used with any device capable of producing BTHome formatted messages: https://bthome.io/
 
+**Only non-encrypted messages are supported as of now**
 
 ## Setup
 
-Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)
-or manually using this URL:
+Install manually using this URL:
 
-    https://github.com/primozh/OctoPrint-Bluetooth-temp-hum-sensor/archive/master.zip
+    https://github.com/primozh/OctoPrint-Bluetooth-Temp-Hum-Sensor/archive/master.zip
 
-**TODO:** Describe how to install your plugin, if more needs to be done than just installing it via pip or through
-the plugin manager.
+And set up MAC address on Plugin Settings page.
 
 ## Configuration
 
-**TODO:** Describe your plugin's configuration options (if any).
+* MAC address: device that is sending the data
+* Show temperature: ON/OFF
+* Show humidity: ON/OFF
+* Show battery: ON/OFF

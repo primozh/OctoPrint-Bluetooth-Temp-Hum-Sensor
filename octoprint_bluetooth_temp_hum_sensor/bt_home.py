@@ -1,12 +1,4 @@
-import logging
 import struct
-from Cryptodome.Cipher import AES
-
-from .helpers import (
-    to_mac,
-    to_unformatted_mac,
-)
-
 
 def parse_uint(data_obj, factor=1):
     """convert bytes (as unsigned integer) and factor to float"""

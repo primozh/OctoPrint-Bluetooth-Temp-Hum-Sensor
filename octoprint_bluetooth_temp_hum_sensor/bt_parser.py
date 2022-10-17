@@ -1,9 +1,6 @@
-
-
 import uuid
 
-from octoprint_bluetooth_temp_hum_sensor.ble_parser.bt_home import BTHome
-
+from octoprint_bluetooth_temp_hum_sensor.bt_home import BTHome
 
 class BTParser:
 
