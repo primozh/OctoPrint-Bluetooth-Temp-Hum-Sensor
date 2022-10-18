@@ -2,14 +2,14 @@
     <div class="control-group">
         <label class="control-label">{{ _('MAC address') }}</label>
         <div class="controls">
-            <input type="text" class="input-block-level" data-bind="value: settings.plugins.bluetooth_temp_hum_sensor.mac_address">
+            <input type="text" class="input-block-level" data-bind="value: local_settings.mac_address" id="mac_address">
         </div>
     </div>
     
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_temperature" id="show_temperature"> Show temperature
+                <input type="checkbox" data-bind="checked: local_settings.show_temperature" id="show_temperature"> Show temperature
             </label>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_humidity" id="show_humidity"> Show humidity
+                <input type="checkbox" data-bind="checked: local_settings.show_humidity" id="show_humidity"> Show humidity
             </label>
         </div>
     </div>
@@ -25,8 +25,33 @@
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: settings.plugins.bluetooth_temp_hum_sensor.show_battery" id="show_batery"> Show battery level
+                <input type="checkbox" data-bind="checked: local_settings.show_battery" id="show_batery"> Show battery level
             </label>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover table-condensed table-hover" id="device_list">
+        <thead>
+            <tr>
+                <th class="">Name</th>
+                <th class="">MAC</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: devices">
+            <tr data-bind="attr: {title: name}">
+                <td class="" data-bind="text: name"></td>
+                <td class="" data-bind="text: mac"></td>
+                <td>
+                    <a class="icon-copy" data-bind="click: function() { $parent.copyMacAddress($data) }" href="#"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn" data-bind="click: searchDevices"> Search for devices </button>
+            <button class="btn" data-bind="click: stop"> Stop </button>
         </div>
     </div>
 
