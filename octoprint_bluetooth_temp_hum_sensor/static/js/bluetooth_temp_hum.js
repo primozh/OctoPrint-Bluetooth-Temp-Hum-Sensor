@@ -43,6 +43,11 @@ $(function() {
                     console.log("API:", response)
                 })
         }
+
+        self.copyMacAddress = function(data) {
+            console.log(data);
+            self.local_settings.mac_address(data.mac)
+        }
         
     };
 

@@ -23,9 +23,15 @@ class BluetoothScanner:
 
     async def run(self):
         self.stop_event = asyncio.Event()
-        self.logger.info("Started scanning for BT devices")
+        timeout = 20
+        end_time = self.loop.time() + timeout
+        self.logger.info("Started scanning for BT devices for %s seconds", timeout)
         async with BleakScanner(self.callback) as scanner:
-            await self.stop_event.wait()
+            while not self.stop_event.is_set():
+                if self.loop.time() > end_time:
+                    self.stop_event.set()
+                    self.logger.info("Timeout!")
+                await asyncio.sleep(0.1)
         
     def callback(self, device, advertising_data):        
         if device.address not in self.detected_devices:

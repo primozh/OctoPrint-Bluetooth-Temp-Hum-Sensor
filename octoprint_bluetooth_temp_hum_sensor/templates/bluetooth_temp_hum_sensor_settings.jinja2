@@ -2,7 +2,7 @@
     <div class="control-group">
         <label class="control-label">{{ _('MAC address') }}</label>
         <div class="controls">
-            <input type="text" class="input-block-level" data-bind="value: local_settings.mac_address">
+            <input type="text" class="input-block-level" data-bind="value: local_settings.mac_address" id="mac_address">
         </div>
     </div>
     
@@ -30,18 +30,30 @@
         </div>
     </div>
 
+    <table class="table table-striped table-hover table-condensed table-hover" id="device_list">
+        <thead>
+            <tr>
+                <th class="">Name</th>
+                <th class="">MAC</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: devices">
+            <tr data-bind="attr: {title: name}">
+                <td class="" data-bind="text: name"></td>
+                <td class="" data-bind="text: mac"></td>
+                <td>
+                    <a class="icon-copy" data-bind="click: function() { $parent.copyMacAddress($data) }" href="#"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
     <div class="control-group">
         <div class="controls">
-            <button data-bind="click: searchDevices"> Search for devices </button>
-            <button data-bind="click: stop"> Stop </button>
+            <button class="btn" data-bind="click: searchDevices"> Search for devices </button>
+            <button class="btn" data-bind="click: stop"> Stop </button>
         </div>
     </div>
-
-
-    <li class="header">Devices</li>
-    <!-- ko foreach: devices -->
-        <li><span data-bind="text: name"></span> <span data-bind="text: mac"></span></li>
-    <!-- /ko -->
 
 <!--     <div class="control-group">
         <div class="controls">
