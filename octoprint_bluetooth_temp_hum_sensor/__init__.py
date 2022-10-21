@@ -40,13 +40,18 @@ class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
             show_temperature=True,
             show_humidity=True,
             show_battery=True,
-            advertising_format=AdvertisingFormat.BTHOME.name,
+            advertising_format="BTHome",
             binding_key="",
             refresh_interval=10
         )
 
     def on_settings_save(self, data):
         old_mac = self._settings.get(["mac_address"])
+        advertising_format = self._settings.get(["advertising_format"])
+        binding_key = self._settings.get(["binding_key"])
+
+        if AdvertisingFormat[advertising_format] == AdvertisingFormat.BTHOME_ENCRYPTED and binding_key is None:
+            raise ValueError("No binding key provided")
 
         octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
 
@@ -58,11 +63,6 @@ class BluetoothTempAndHumDataPlugin(octoprint.plugin.StartupPlugin,
             self.bluetoothListener = BluetoothAdvertismentAnalyzer(self._identifier, new_mac, self.aeskeys, self._logger, self._plugin_manager)
             self._logger.info("Restarting BT listener with new MAC address %s", new_mac)
 
-
-    def get_template_vars(self):
-        return dict(
-            advertising_formats=[e.name for e in AdvertisingFormat]
-        )
 
     def get_assets(self):
         return dict(

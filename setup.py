@@ -14,7 +14,7 @@ plugin_package = "octoprint_bluetooth_temp_hum_sensor"
 plugin_name = "Bluetooth Temperature and Humidty Plugin"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.1.1"
+plugin_version = "0.1.2"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
@@ -33,7 +33,7 @@ plugin_url = "https://github.com/primozh/OctoPrint-Bluetooth-Temp-Hum-Sensor"
 plugin_license = "AGPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
-plugin_requires = ["bleak"]
+plugin_requires = ["bleak", "pycryptodome"]
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point

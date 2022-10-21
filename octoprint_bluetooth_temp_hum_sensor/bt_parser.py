@@ -7,7 +7,7 @@ class BTParser:
     def __init__(self, logger, aeskeys=None):
         self.logger = logger
         self.aeskeys = aeskeys
-        self.bthome = BTHome()
+        self.bthome = BTHome(logger)
 
     def parse_data(self, mac_address, advertising_data):
         for key in advertising_data.service_data:
@@ -18,7 +18,7 @@ class BTParser:
             uuid16 = int.from_bytes(bytekey[2:4], "big")
 
             if uuid16 in [0x181C, 0x181E]:
-                self.logger.debug("BTHome format. Parsing...")
+                self.logger.info("BTHome format. Parsing...")
                 return self.bthome.parse_bthome(uuid16, mac_address, service_data, self.aeskeys)
             else:
-                self.logger.debug("Unknown service id")
+                self.logger.info("Unknown service id")

@@ -6,6 +6,10 @@ $(function() {
         self.currentTemp = ko.observable("- °C");
         self.currentBattery = ko.observable("- %");
         self.currentHumidity = ko.observable("- %");
+        self.advertisingOptions = ko.observableArray([
+            "BTHOME",
+            "BTHOME_ENCRYPTED"
+        ]);
 
         self.devices = ko.observableArray();
 

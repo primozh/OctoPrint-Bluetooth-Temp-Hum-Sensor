@@ -30,6 +30,21 @@
         </div>
     </div>
 
+    <div class="control-group">
+        <label class="control-label">{{ _('Advertising format') }}</label>
+        <div class="controls">
+            <select data-bind="options: advertisingOptions, value: local_settings.advertising_format">
+            </select>
+        </div>
+    </div>
+
+   <div class="control-group" data-bind="visible: local_settings.advertising_format() === 'BTHOME_ENCRYPTED'">
+        <label class="control-label">{{ _('Binding key') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: local_settings.binding_key">
+        </div>
+    </div>
+
     <table class="table table-striped table-hover table-condensed table-hover" id="device_list">
         <thead>
             <tr>
@@ -54,36 +69,5 @@
             <button class="btn" data-bind="click: stop"> Stop </button>
         </div>
     </div>
-
-<!--     <div class="control-group">
-        <div class="controls">
-            <label class="control-label">{{ _('Advertising format') }}</label>
-            <div class="controls">
-                <select>
-                    {% for option in plugin_bluetooth_temp_hum_sensor_advertising_formats %}
-                        <option value="{{option}}">
-                        {{option}}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-    </div>
-
-   <div class="control-group">
-        <label class="control-label">{{ _('Binding key') }}</label>
-        <div class="controls">
-            <input type="text" class="input-block-level" data-bind="value: settings.plugins.bluetooth_temp_hum_sensor.binding_key">
-        </div>
-    </div>
-
-    
-    <div class="control-group">
-        <label class="control-label">{{ _('Refresh interval') }}</label>
-        <div class="controls">
-            <input type="text" class="input-block-level" data-bind="value: settings.plugins.bluetooth_temp_hum_sensor.refresh_interval">
-        </div>
-    </div>
--->
 
 </form>
